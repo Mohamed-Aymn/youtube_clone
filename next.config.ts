@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /* Local mock assets only — no remote image hosts */
 };
 
 export default nextConfig;

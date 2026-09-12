@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# YouTube Clone (Browse MVP)
 
-## Getting Started
+Next.js App Router demo of a YouTube-like browse experience, structured with Clean Architecture and powered by **local mock data** (no YouTube API key).
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Home feed (popular mock videos)
+- Watch page with local mock player and related videos
+- Search across mock titles/descriptions/channels
+- Channel pages
+- YouTube-like header and sidebar shell
+
+## Architecture
+
+```
+src/domain            entities + repository ports
+src/application       use cases
+src/infrastructure    mock repositories + DI container
+components/           UI
+app/                  routes
+public/thumbnails     local poster images
+public/avatars        local channel avatars
+public/banners        local channel banners
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Pages call `getContainer()` and invoke use cases. Domain code has no Next.js or data-source imports. Swap `createMock*Repository` in the DI container for a real adapter later if needed.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000).
 
-To learn more about Next.js, take a look at the following resources:
+Mock catalog lives in [`src/infrastructure/mock/data.ts`](src/infrastructure/mock/data.ts).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `npm run dev` — development server
+- `npm run build` — production build
+- `npm run start` — start production server
+- `npm run lint` — ESLint
